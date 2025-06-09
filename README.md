@@ -19,25 +19,25 @@
 
 ![i1](image/Laa6_01.jpg)
 
-![i2](image/Laa06_02.jpg) 
+![i2](image/Laa6_02.jpg) 
 
 * Проверил состояние репликации мастера
 ```
 select * from pg_stat_replication \gx
 ```
 
-![i3](image/Laa06_03.jpg) 
+![i3](image/Laa6_03.jpg) 
 
 * Проверил состояние репликации сегмента
 ```
 select * from pg_stat_replication \gx
 ```
 
-![i4](image/Laa06_04.jpg) 
+![i4](image/Laa6_04.jpg) 
 
 * В качестве решения по мониторингу кластера воспользовался готовым бандлом Grafana + Prometheus от Arenadata
 
-![i5](image/Laa06_05.jpg) 
+![i5](image/Laa6_05.jpg) 
 
 * Создал таблицу, вставил в нее данные
 ```
@@ -46,14 +46,14 @@ insert into test_fail select * from generate_series(1,1000000);
 select count(*) from test_fail ;
 ```
 
-![i6](image/Laa06_06.jpg) 
+![i6](image/Laa6_06.jpg) 
 
 * После этого выключил произвольный сегмент
 ```
 /usr/lib/gpdb/bin/pg_ctl stop -m fast -D /data1/primary/gpseg1/
 ```
 
-![i7](image/Laa06_07.jpg) 
+![i7](image/Laa6_07.jpg) 
 
 * Включил обратно сегмент
 ```
@@ -65,14 +65,14 @@ select count(*) from test_fail ;
 gprecoverseg -F
 ```
 
-![i8](image/Laa06_08.jpg)
+![i8](image/Laa6_08.jpg)
 
 * Выполнил ребалансинг
 ```
 gprecoverseg -r
 ```
 
-![i9](image/Laa06_09.jpg) 
+![i9](image/Laa6_09.jpg) 
 
 * После этого все сегменты встали на свои места
 
@@ -80,4 +80,4 @@ gprecoverseg -r
 
 * На момент отсутствия одного сегмента делал выборки из таблицы, все данные были на месте
 
-![i11](image/Laa06_11.jpg) 
+![i11](image/Laa6_11.jpg) 
